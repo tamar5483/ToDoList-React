@@ -9,34 +9,30 @@ function App() {
   async function getTodos() {
     const todos = await service.getTasks();
     setTodos(todos);
-    console.log("finished get")
-
   }
 
   async function createTodo(e) {
     e.preventDefault();
     await service.addTask(newTodo);
     setNewTodo("");//clear input
-    console.log("finished add",e)
     await getTodos();//refresh tasks list (in order to see the new one)
   }
 
   async function updateCompleted(todo, isComplete) {
     await service.setCompleted(todo.id,todo.name, isComplete);
-    console.log("finished update",todo)
     await getTodos();//refresh tasks list (in order to see the updated one)
 
   }
 
   async function deleteTodo(id) {
     await service.deleteTask(id);
-    console.log("finished delete",id)
     await getTodos();//refresh tasks list
 
   }
 
   useEffect(() => {
     getTodos();
+
   }, []);
 
 
